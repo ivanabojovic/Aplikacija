@@ -6,7 +6,7 @@ export class AppController {
   
 
   @Get() // http://localhost:3000/
-  getHello(): string {
-    return 'Hello World';
+  getIndex(): string {
+    return 'Home page';
   }
 }
