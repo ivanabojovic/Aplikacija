@@ -14,7 +14,7 @@ export class AppController {
     return 'Home page';
   }
 
-  @Get('api/korisnik')
+  @Get('api/korisnik') //http://localhost:3000/api/korisnik
   getAllAdmins(): Promise<Korisnik[]> {
    return this.korisnikService.getAll();
   }
