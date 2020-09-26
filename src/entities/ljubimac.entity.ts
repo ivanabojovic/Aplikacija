@@ -5,11 +5,11 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
-import { Korisnik } from "./Korisnik";
-import { Rasa } from "./Rasa";
-import { Slika } from "./Slika";
+import { Korisnik } from "./korisnik.entity";
+import { Rasa } from "./rasa.entity";
+import { Slika } from "./slika.entity";
 
 @Index("fk_ljubimac_korisnik_id", ["korisnikId"], {})
 @Index("fk_ljubimac_rasa_id", ["rasaId"], {})
@@ -42,20 +42,25 @@ export class Ljubimac {
   @Column("int", { name: "rasa_id", unsigned: true, default: () => "'0'" })
   rasaId: number;
 
-  @ManyToOne(() => Korisnik, (korisnik) => korisnik.ljubimacs, {
-    onDelete: "NO ACTION",
-    onUpdate: "CASCADE",
-  })
+  @ManyToOne(
+    () => Korisnik,
+    korisnik => korisnik.ljubimac,
+    { onDelete: "RESTRICT", onUpdate: "CASCADE" }
+  )
   @JoinColumn([{ name: "korisnik_id", referencedColumnName: "korisnikId" }])
   korisnik: Korisnik;
 
-  @ManyToOne(() => Rasa, (rasa) => rasa.ljubimacs, {
-    onDelete: "NO ACTION",
-    onUpdate: "CASCADE",
-  })
+  @ManyToOne(
+    () => Rasa,
+    rasa => rasa.ljubimacs,
+    { onDelete: "RESTRICT", onUpdate: "CASCADE" }
+  )
   @JoinColumn([{ name: "rasa_id", referencedColumnName: "rasaId" }])
   rasa: Rasa;
 
-  @OneToMany(() => Slika, (slika) => slika.ljubimac)
+  @OneToMany(
+    () => Slika,
+    slika => slika.ljubimac
+  )
   slikas: Slika[];
 }

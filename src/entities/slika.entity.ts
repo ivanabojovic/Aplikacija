@@ -4,9 +4,10 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
-import { Ljubimac } from "./Ljubimac";
+import { Ljubimac } from "./ljubimac.entity";
+
 
 @Index("fk_slika_ljubimac_id", ["ljubimacId"], {})
 @Entity("slika", { schema: "aplikacija" })
@@ -20,10 +21,11 @@ export class Slika {
   @Column("int", { name: "ljubimac_id", unsigned: true, default: () => "'0'" })
   ljubimacId: number;
 
-  @ManyToOne(() => Ljubimac, (ljubimac) => ljubimac.slikas, {
-    onDelete: "NO ACTION",
-    onUpdate: "CASCADE",
-  })
+  @ManyToOne(
+    () => Ljubimac,
+    ljubimac => ljubimac.slikas,
+    { onDelete: "RESTRICT", onUpdate: "CASCADE" }
+  )
   @JoinColumn([{ name: "ljubimac_id", referencedColumnName: "ljubimacId" }])
   ljubimac: Ljubimac;
 }

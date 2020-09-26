@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Rasa } from "./Rasa";
+import { Rasa } from "./rasa.entity";
 
 @Index("uq_vrsta_ime", ["ime"], { unique: true })
 @Entity("vrsta", { schema: "aplikacija" })
